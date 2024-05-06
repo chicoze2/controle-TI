@@ -1,0 +1,86 @@
+<body>
+
+    <%- include('../main') %>
+    <%- include("./../partials/header.ejs") %>
+
+    <div class="container">
+        <h1 class="mt-4 mb-4">Lista de Manutenções</h1>
+        <!-- Dropdown para filtrar por empresa -->
+        <div class="mb-3">
+            <label for="selectEmpresa" class="form-label">Filtrar por Empresa:</label>
+            <select id="selectEmpresa" class="form-select">
+                <option value="">Todas as Empresas</option>
+                <% empresas.forEach(function(empresa) { %>
+                    <option value="<%= empresa.id %>"><%= empresa.nome %></option>
+                <% }); %>
+            </select>
+        </div>
+        <!-- Tabela de manutencoes -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Empresa</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Os manutencoes serão renderizados aqui -->
+                <% manutencoes.forEach(function(manutencao, index) { %>
+                    <tr>
+                        <th scope="row"><%= index + 1 %></th>
+                        <td><%= manutencao.computadorId%> - <%= manutencao.pcName %></td>
+                        <td><%= manutencao.descricao || 'Sem descrição' %></td>
+                        <td><%= manutencao.empresaNome %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Adicionando Bootstrap JS (opcional, caso queira usar funcionalidades como modals ou dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Adicionando script personalizado para filtrar manutencoes por empresa -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const selectEmpresa = document.getElementById("selectEmpresa");
+            const tableBody = document.getElementById("tableBody");
+
+            // Função para buscar manutencoes por empresa selecionada
+            const buscarManutencoesPorEmpresa = async (empresaId) => {
+                try {
+                    const response = await fetch(`/manutencoes-by-empresa?empresaId=${empresaId}`);
+                    const manutencoes = await response.json();
+                    renderizarManutencoes(manutencoes);
+                } catch (error) {
+                    console.log(`Erro ao buscar manutencoes: ${error}` );
+                }
+            };
+
+            // Função para renderizar a lista de manutencoes
+            const renderizarManutencoes = (manutencoes) => {
+                tableBody.innerHTML = ""; // Limpa a tabela
+                manutencoes.forEach(function(manutencao, index) {
+                    const row = `
+                        <tr>
+                            <th scope="row">${index + 1}</th>
+                            <td>${manutencao.nome}</td>
+                            <td>${manutencao.descricao || 'Sem descrição'}</td>
+                            <!-- Corrigido aqui -->
+                            <td>${manutencao.empresaNome}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            };
+
+            // Event listener para quando uma empresa é selecionada no dropdown
+            selectEmpresa.addEventListener("change", function() {
+                const empresaId = this.value;
+                buscarManutencoesPorEmpresa(empresaId);
+            });
+        });
+    </script>
+</body>
+

@@ -1,0 +1,44 @@
+    <%- include("./../partials/header.ejs") %>
+    <%- include('../main') %>
+
+        <div class="container">
+            <h1>Bem-vindo ao Controle de TI</h1>
+
+            <div class="links">
+                <a href="/register-pc" class="btn">Adicionar computador</a>
+                <a href="/register-empresa" class="btn">Adicionar empresa</a>
+                <a href="/register-manutencao" class="btn">Adicionar manutencao</a>
+            </div>
+
+            <div class="list-links">
+                <a href="/computadores">
+                    <h2>Lista de computadores</h2>
+                </a>
+
+                <a href="/empresas">
+                    <h2>Lista de empresas</h2>
+                </a>
+
+                <a href="/manutencoes">
+                    <h2>Lista de manutencoes</h2>
+                </a>
+
+            </div>
+
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>Lista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>item 1</td>
+                    </tr>
+                    <tr>
+                        <td>item 2</td>
+                    </tr>
+                    <!-- Adicione mais linhas conforme necessário -->
+                </tbody>
+            </table>
+        </div>
