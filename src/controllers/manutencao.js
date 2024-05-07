@@ -118,8 +118,8 @@ class ManutencaoController {
 
       const manutencaoJSON = manutencaoItemList.map((manutencao) => ({
         id: manutencao.dataValues.id,
-        descricao: manutencao.dataValues.descricao
-
+        descricao: manutencao.dataValues.descricao,
+        dataEntrada: manutencao.dataValues.createdAt,
       }));
 
       console.log(manutencaoJSON)

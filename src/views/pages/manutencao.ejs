@@ -77,6 +77,12 @@
             
             async function carregarManutencoes() {
                 try {
+
+                    const manutencoes = JSON.parse('<%- JSON.stringify(manutencoes) %>');
+                    console.log(typeof manutencoes)
+                    console.log(manutencoes)
+                    
+
                     const table = document.createElement('table');
                     table.classList.add('table');
     
