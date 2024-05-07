@@ -151,6 +151,9 @@ router.get('/ver-manutencao', async (req, res) => {
     const manutencao = await manutencaoController.findById(id)
     const manutencoes = await manutencaoController.getItemManutencao(id)
 
+    console.log(manutencoes + "buscando id " + id)        
+
+
     res.render('pages/manutencao', {manutencao: manutencao, manutencoes: manutencoes})
 
 })
@@ -168,7 +171,6 @@ router.get('/get-itens-manutencao', async (req, res) => {
 
     const manutencaoItensList = await manutencaoController.getItemManutencao(id)
 
-    console.log(manutencaoItensList)
     return manutencaoItensList
 })
 
