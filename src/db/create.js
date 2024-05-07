@@ -85,10 +85,27 @@ const Manutencao = database.define("manutencoes", {
   Manutencao.belongsTo(Computador , { foreignKey: 'computadorId', as: 'computador' });
   
 
+  const ManutencaoItem = database.define("manutencaoItems", {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    descricao: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    }
+    
+  })
+
+Manutencao.hasMany(ManutencaoItem, { foreignKey: 'manutencaoId', as: 'itens' });
+
+
 database.sync()
     .then(() => {
-        console.log('Computador table created successfully');
+        console.log('All table created successfully');
     })
     .catch(err => {
-        console.error('Error creating Computador table:', err);
+        console.error('Error creating table:', err);
     });

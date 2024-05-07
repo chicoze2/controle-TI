@@ -55,12 +55,10 @@
 </head>
 <body>
     
-        <%- include("./../partials/header.ejs") %>
-        <%- include("../main.ejs") %>
+    <%- include("./../partials/header.ejs") %>
+    <%- include("../main.ejs") %>
 
-
-
-    <div  class="container">
+    <div class="container">
         <h1>Informações do computador</h1>
         <div class="container">
             <h3>Nome do computador: <%=computador.id%> <%= computador.nome %></h3>
@@ -102,7 +100,7 @@
                         // Cabeçalho da tabela
                         const thead = document.createElement('thead');
                         const trHead = document.createElement('tr');
-                        ['ID', 'Data de Entrada', 'Data de Saída', 'Descrição'].forEach(headerText => {
+                        ['ID', 'Data de Entrada', 'Data de Saída', 'Descrição', 'Ver Manutenção'].forEach(headerText => {
                             const th = document.createElement('th');
                             th.textContent = headerText;
                             trHead.appendChild(th);
@@ -130,6 +128,16 @@
                                 }
                                 trBody.appendChild(td);
                             });
+
+                            // Coluna para visualizar a manutenção
+                            const tdVerManutencao = document.createElement('td');
+                            const linkVerManutencao = document.createElement('a');
+                            linkVerManutencao.href = `/ver-manutencao?id=${manut.id}`;
+                            linkVerManutencao.textContent = 'Ver';
+                            linkVerManutencao.className = "btn btn-primary btn-sm"
+                            tdVerManutencao.appendChild(linkVerManutencao);
+                            trBody.appendChild(tdVerManutencao);
+
                             tbody.appendChild(trBody);
                         });
                         table.appendChild(tbody);

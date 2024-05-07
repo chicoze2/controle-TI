@@ -1,6 +1,7 @@
 const Manutencao = require("../models/Manutencao");
 const Computador = require("../models/Computador");
 const Empresa = require("../models/Empresa");
+const ManutencaoItem = require("../models/ManutencaoItem")
 
 class ManutencaoController {
   async create(description, computadorId) {
@@ -47,7 +48,20 @@ class ManutencaoController {
       throw new Error(`Erro ao listar manutenções: ${error.message}`);
     }
   }
-  //todo
+
+  async findById(id) {
+    try {
+      const manutencao = await Manutencao.findByPk(id, {
+        include: "computador",})
+
+      return manutencao
+      
+  } catch (error) {
+    throw new Error(
+      "Erro ao buscar manutenções por ID: " + error.message
+   )}
+  }
+
   async findByEmpresa(empresaId) {
     try {
       const manutencoesList = await Manutencao.findAll({
@@ -82,6 +96,42 @@ class ManutencaoController {
       throw new Error("Erro ao buscar computadores: " + error.message);
     }
   }
+
+  async addItemManutencao(manutencaoId, descricao) {
+    try {
+      const manutencaoItem = await ManutencaoItem.create({descricao: descricao, manutencaoId: manutencaoId})
+    }
+    catch(err){
+      throw new Error("Erro ao adicionar um item dentro de uma manutenção" + err)
+    }
+  }
+
+  async getItemManutencao(id) {
+    try{
+
+      const manutencaoItemList = await ManutencaoItem.findAll({
+        where: {manutencaoId : id},
+        include: "manutencao"
+      })
+
+      console.log(manutencaoItemList)
+
+      const manutencaoJSON = manutencaoItemList.map((manutencao) => ({
+        id: manutencao.dataValues.id,
+        descricao: manutencao.dataValues.descricao
+
+      }));
+
+      console.log(manutencaoJSON)
+      return manutencaoJSON
+
+    }catch(err){
+      throw new Error("Erro ao procurar os itens dentro de uma manutenção" + err)
+    }
+  }
+
 }
+
+ManutencaoItem.belongsTo(Manutencao, { foreignKey: 'id', as: 'manutencao' })
 
 module.exports = ManutencaoController;

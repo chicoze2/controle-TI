@@ -131,7 +131,7 @@
                 computadores.forEach(function(computador, index) {
                     const row = `
                         <tr>
-                            <th scope="row">${index + 1}</th>
+                            <th scope="row">${computador.id}</th>
                             <td>${computador.nome}</td>
                             <td>${computador.descricao || 'Sem descrição'}</td>
                             <td>${computador.empresa.nome}</td>

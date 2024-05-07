@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
 const database = require("../db/init.js");
+
 const Computador = require("./Computador");
+const ManutencaoItem = require("./ManutencaoItem.js")
 
 const Manutencao = database.define("manutencoes", {
   id: {
@@ -36,5 +38,7 @@ const Manutencao = database.define("manutencoes", {
 
 // Relacionamento entre Manutencao e Computador (muitas manutenções para um computador)
 Manutencao.belongsTo(Computador , { foreignKey: 'computadorId', as: 'computador' });
+
+Manutencao.hasMany(ManutencaoItem, { foreignKey: 'manutencaoId', as: 'itens' });
 
 module.exports = Manutencao;

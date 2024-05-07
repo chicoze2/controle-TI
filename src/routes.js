@@ -48,7 +48,13 @@ router.get('/computadores-by-empresa', async (req, res) => {
 
     const {empresaId} = req.query
 
-    const computadorController = new ComputadorController();
+    console.log("log rotas "+ empresaId)
+
+    if(!empresaId){
+        const allComputadoresList = await computadorController.getAll()
+        return res.json(allComputadoresList)
+    }
+
     const computadoresList = await computadorController.getByEmpresa(empresaId);
 
     res.json(computadoresList);
@@ -56,10 +62,7 @@ router.get('/computadores-by-empresa', async (req, res) => {
 })
 
 router.get('/computadores', async (req, res) => {
-    const computadorController = new ComputadorController();
     const computadoresList = await computadorController.getAll();
-
-    const empresaController = new EmpresaController();
     const empresasList = await empresaController.getAll();
     
     res.render('pages/computadores', { computadores: computadoresList, empresas: empresasList  });
@@ -109,14 +112,13 @@ router.get('/manutencoes-by-computador', async (req, res) => {
     const {id} = req.query //////CHAAANGE
     const manutencoesList = await manutencaoController.findByComputador(id);
 
-    return res.send(manutencoesList)
+    return res.json(manutencoesList)
 
 })
 
 
 router.get('/manutencoes', async (req, res) => {
     const manutencaoList = await manutencaoController.findAll()
-    console.log(manutencaoList)
     const empresasList = await empresaController.getAll();
 
     res.render('pages/manutencoes', { empresas: empresasList, manutencoes: manutencaoList })
@@ -141,6 +143,33 @@ router.post('/register-manutencao', async (req, res) => {
         res.status(500).send("Erro ao registrar manutencao" + error.message);
     }
 
+})
+
+router.get('/ver-manutencao', async (req, res) => {
+    const { id } = req.query
+
+    const manutencao = await manutencaoController.findById(id)
+    const manutencoes = await manutencaoController.getItemManutencao(id)
+
+    res.render('pages/manutencao', {manutencao: manutencao, manutencoes: manutencoes})
+
+})
+
+router.post('/add-item-manutencao', async (req, res) => {
+    const {manutencaoId, descricao} = req.body
+
+    const itemManutencao = await manutencaoController.addItemManutencao(manutencaoId, descricao)
+
+    return res.send(itemManutencao)
+})
+
+router.get('/get-itens-manutencao', async (req, res) => {
+    const {id} = req.query
+
+    const manutencaoItensList = await manutencaoController.getItemManutencao(id)
+
+    console.log(manutencaoItensList)
+    return manutencaoItensList
 })
 
 module.exports = router;
