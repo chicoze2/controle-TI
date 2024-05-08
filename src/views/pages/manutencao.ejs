@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +45,8 @@
             margin-top: 20px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
@@ -58,22 +60,31 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <%- include("./../partials/header.ejs") %>
     </header>
 
     <div class="container">
-        <h1>Informações da Manutenção número: <%=manutencao.id%></h1>
+        <h1>Informações da Manutenção número: <%=manutencao.id%>
+        </h1>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="mb-0">Histórico</h3>
-            <!-- Botão para abrir o modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Adicionar Procedimento</button>
+            <div class="info-container text-center col-md-12 ">
+                <h3 class="mb-0">Histórico</h3>
+                <!-- Botão para abrir o modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modalForm">Adicionar Procedimento</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacao">Fechar manutenção</button>
+
+
+            </div>
         </div>
-        
-        <p>Computador: <%=manutencao.computador.dataValues.id%> - <%=manutencao.computador.dataValues.nome%></p>
-        
+
+        <p>Computador: <%=manutencao.computador.dataValues.id%> - <%=manutencao.computador.dataValues.nome%>
+        </p>
+
         <div id="manutencoesTable"></div> <!-- Local onde a tabela será inserida -->
     </div>
 
@@ -92,7 +103,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Descrição</label>
-                            <textarea class="form-control" id="descricao" rows="5" name="descricao" placeholder="Descreva os procedimentos realizados."></textarea>
+                            <textarea class="form-control" id="descricao" rows="5" name="descricao"
+                                placeholder="Descreva os procedimentos realizados."></textarea>
                         </div>
                         <hr>
                         <div class="text-center">
@@ -104,14 +116,32 @@
             </div>
         </div>
     </div>
+<!-- Modal Confirmacao -->
+<div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-labelledby="modalConfirmacaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmacaoLabel">Confirmação de Encerramento de Manutenção</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja encerrar esta manutenção?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                <a href="/encerrar-manutencao?id=<%= manutencao.id %>" class="btn btn-primary">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <script>
-        document.addEventListener("DOMContentLoaded", async function() {
+        document.addEventListener("DOMContentLoaded", async function () {
             // Função para carregar o histórico de manutenções
             async function carregarManutencoes() {
                 try {
                     const manutencoes = JSON.parse('<%- JSON.stringify(manutencoes) %>');
-                    console.log(manutencoes)
 
                     const table = document.createElement('table');
                     table.classList.add('table');
@@ -162,8 +192,9 @@
             carregarManutencoes();
         });
     </script>
-    
+
     <!-- Adicionando Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

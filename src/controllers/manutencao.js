@@ -99,6 +99,7 @@ class ManutencaoController {
 
   async addItemManutencao(manutencaoId, descricao) {
     try {
+      descricao.replace(/[^a-zA-Z]/g, '')
       const manutencaoItem = await ManutencaoItem.create({descricao: descricao, manutencaoId: manutencaoId})
     }
     catch(err){
@@ -114,7 +115,6 @@ class ManutencaoController {
         include: "manutencao"
       })
 
-
       const manutencaoJSON = manutencaoItemList.map((manutencao) => ({
         id: manutencao.dataValues.id,
         descricao: manutencao.dataValues.descricao,
@@ -126,6 +126,18 @@ class ManutencaoController {
     }catch(err){
       throw new Error("Erro ao procurar os itens dentro de uma manutenção" + err)
     }
+  }
+
+  async encerrarManutencao(id){
+    try{
+      const manutencao = await Manutencao.findByPk(id)
+      manutencao.dataSaida = new Date()
+      manutencao.save()
+
+      return
+  } catch (err){
+    throw new Error("Erro ao encerrar uma manutenção" + err)
+  }
   }
 
 }

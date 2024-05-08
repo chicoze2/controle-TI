@@ -163,7 +163,7 @@ router.post('/add-item-manutencao', async (req, res) => {
 
     const itemManutencao = await manutencaoController.addItemManutencao(manutencaoId, descricao)
 
-    return res.send(itemManutencao)
+    return res.redirect(`/ver-manutencao?id=${manutencaoId}`)
 })
 
 router.get('/get-itens-manutencao', async (req, res) => {
@@ -172,6 +172,14 @@ router.get('/get-itens-manutencao', async (req, res) => {
     const manutencaoItensList = await manutencaoController.getItemManutencao(id)
 
     return manutencaoItensList
+})
+
+router.get('/encerrar-manutencao', async (req, res) => {
+    const {id} = req.query
+
+    manutencaoController.encerrarManutencao(id)
+
+    return res.redirect('/manutencoes')
 })
 
 module.exports = router;
