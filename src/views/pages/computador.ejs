@@ -12,14 +12,6 @@
             background-color: #f0f0f0;
         }
 
-        header {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
 
         h1 {
             margin-bottom: 20px;
@@ -74,6 +66,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const createdAt = "<%= computador.createdAt %>"; // Data fornecida pelo servidor
+            // Formatar a data de registro do computador para o formato brasileiro
             const createdAtFormatted = new Date(createdAt).toLocaleString('pt-BR', {
                 day: '2-digit',
                 month: '2-digit',
@@ -114,15 +107,21 @@
                             const trBody = document.createElement('tr');
                             ['id', 'dataEntrada', 'dataSaida', 'descricao'].forEach(prop => {
                                 const td = document.createElement('td');
-                                if (prop === 'dataEntrada') {
-                                    const date = new Date(manut[prop]).toLocaleString('pt-BR', {
-                                        day: '2-digit',
-                                        month: '2-digit',
-                                        year: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit'
-                                    });
-                                    td.textContent = date;
+                                if (prop === 'dataEntrada' || prop === 'dataSaida') {
+                                    if (prop === 'dataSaida' && manut[prop] === null){
+                                        td.textContent = 'Manutenção em andamento';
+                                    } else {
+
+                                        
+                                        const date = new Date(manut[prop]).toLocaleString('pt-BR', {
+                                            day: '2-digit',
+                                            month: '2-digit',
+                                            year: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        });
+                                        td.textContent = date;
+                                    }
                                 } else {
                                     td.textContent = manut[prop];
                                 }
