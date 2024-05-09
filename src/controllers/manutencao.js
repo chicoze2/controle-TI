@@ -87,6 +87,7 @@ class ManutencaoController {
         id: manutencao.dataValues.id,
         descricao: manutencao.dataValues.descricao,
         dataEntrada: manutencao.dataValues.dataEntrada,
+        dataSaida: manutencao.dataValues.dataSaida,
         computadorId: manutencao.dataValues.computadorId,
         pcName: manutencao.computador.nome,
       }));
