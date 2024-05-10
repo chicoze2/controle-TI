@@ -136,7 +136,7 @@ router.post('/register-manutencao', async (req, res) => {
 
     try{
         const manutencao = await manutencaoController.create(descricao, computador);
-        return res.redirect("/manutencoes")
+        return res.redirect(`/ver-manutencao?id=${manutencao.id}`)
 
     } catch(error){
         console.error("Erro ao registrar manutencao:", error);

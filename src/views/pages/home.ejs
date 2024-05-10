@@ -1,28 +1,40 @@
-    <%- include("./../partials/header.ejs") %>
-    <%- include('../main') %>
+<%- include("./../partials/header.ejs") %>
 
-    <h1 class="text-center pt-4">Bem-vindo ao Controle de TI</h1>
-        <div class="container border d-flex flex-column align-items-center h-100 justify-content-center" style="border-radius: 16px;border-color: #f5f5f5;box-shadow: 0px 4px 15px -3px #0000001b;">
-            
-            <div class="links pb-4">
-                <a href="/register-pc" class="btn btn-primary">Adicionar computador</a>
-                <a href="/register-empresa" class="btn btn-primary">Adicionar empresa</a>
-                <a href="/register-manutencao" class="btn btn-primary">Adicionar manutencao</a>
-            </div>
-
-            <div class="list-links">
-                <a href="/computadores">
-                    <h2>Lista de computadores</h2>
-                </a>
-
-                <a href="/empresas">
-                    <h2>Lista de empresas</h2>
-                </a>
-
-                <a href="/manutencoes">
-                    <h2>Lista de manutencoes</h2>
-                </a>
-
-            </div>
-
+<div class="container-fluid bg-light py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1>Bem-vindo ao Controle de TI</h1>
+            <p class="lead">Gerencie seus computadores, empresas e manutenções de forma eficiente.</p>
         </div>
+    </div>
+
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Adicionar</h2>
+                    <div class="btn-group-vertical" role="group">
+                        <a href="/register-pc" class="btn btn-primary btn-lg btn-block mb-2">Computador</a>
+                        <a href="/register-empresa" class="btn btn-primary btn-lg btn-block mb-2">Empresa</a>
+                        <a href="/register-manutencao" class="btn btn-primary btn-lg btn-block mb-2">Manutenção</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Listagem</h2>
+                    <div class="btn-group-vertical" role="group">
+                        <a href="/computadores" class="btn btn-primary btn-lg btn-block mb-2">Lista de computadores</a>
+                        <a href="/empresas" class="btn btn-primary btn-lg btn-block mb-2">Lista de empresas</a>
+                        <a href="/manutencoes" class="btn btn-primary btn-lg btn-block mb-2">Lista de manutenções</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../main') %>

@@ -102,7 +102,8 @@ class ManutencaoController {
   async addItemManutencao(manutencaoId, descricao) {
     try {
       descricao.replace(/[^\w\s]|_\s*$/gi, "");
-      const manutencaoItem = await ManutencaoItem.create({descricao: descricao, manutencaoId: manutencaoId})
+      const sanitizedDescricao = descricao.toString()
+      const manutencaoItem = await ManutencaoItem.create({descricao: sanitizedDescricao, manutencaoId: manutencaoId})
     }
     catch(err){
       throw new Error("Erro ao adicionar um item dentro de uma manutenção" + err)
