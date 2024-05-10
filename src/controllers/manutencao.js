@@ -27,7 +27,18 @@ class ManutencaoController {
       const manutencoesList = await Manutencao.findAll({
         where: { dataSaida: null }
       });
-      return manutencoesList;
+
+      const manutencoesJSON = manutencoesList.map((manutencao) => ({
+        id: manutencao.dataValues.id,
+        descricao: manutencao.dataValues.descricao,
+        computadorId: manutencao.dataValues.computadorId,
+        dataEntrada: manutencao.dataValues.dataEntrada,
+        dataSaida: manutencao.dataValues.dataSaida,
+      }));      
+
+      console.log(manutencoesJSON)
+      return manutencoesJSON;
+      
     } catch (err) {
       throw new Error(`Erro ao buscar manutenções abertas: ${err.message}`);
     }

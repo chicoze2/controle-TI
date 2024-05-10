@@ -9,9 +9,16 @@ const computadorController = new ComputadorController();
 const ManutencaoController = require("./controllers/manutencao")
 const manutencaoController = new ManutencaoController();
 
-
+router.get('/test', (req, res) => {
+    const manutencoesAbertas = manutencaoController.findOpened();
+    console.log(typeof manutencoesAbertas)
+    
+    return res.send()
+})
 router.get('/', (req, res) => {
-    res.render('pages/home.ejs')
+    const manutencoes = manutencaoController.findOpened();
+
+    res.render('pages/home.ejs', {manutencoes: manutencoes})
 });
 
 ///EMPRESA///
@@ -118,11 +125,18 @@ router.get('/manutencoes-by-computador', async (req, res) => {
 
 
 router.get('/manutencoes', async (req, res) => {
-    const manutencaoList = await manutencaoController.findOpened()
+    const manutencaoList = await manutencaoController.findAll()
     const empresasList = await empresaController.getAll();
 
-    res.render('pages/manutencoes', { empresas: empresasList, manutencoes: manutencaoList })
+    return res.render('pages/manutencoes', { empresas: empresasList, manutencoes: manutencaoList })
 })
+
+router.get('/manutencoes-open', async (req, res) => {
+    const manutencaoList = await manutencaoController.findOpened()
+
+    return res.json(manutencaoList)
+})
+
 
 router.get('/register-manutencao', async (req, res) => {
     const computadoresList = await computadorController.getAll();
