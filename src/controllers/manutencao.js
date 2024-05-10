@@ -22,6 +22,19 @@ class ManutencaoController {
     }
   }
 
+  async findOpened() {
+    try {
+      const manutencoesList = await Manutencao.findAll({
+        where: { dataSaida: null }
+      });
+      return manutencoesList;
+    } catch (err) {
+      throw new Error(`Erro ao buscar manutenções abertas: ${err.message}`);
+    }
+  }
+  
+
+
   async findAll() {
     try {
       const manutencoesList = await Manutencao.findAll({
@@ -65,11 +78,12 @@ class ManutencaoController {
 
   async findByEmpresa(empresaId) {
     try {
-      const manutencoesList = await Manutencao.findAll({
-        where: { empresaId: id },
-        include: "empresa",
-      });
-      console.log("terminar essa pora");
+      // const manutencoesList = await Manutencao.findAll({
+      //   where: { empresaId: empresaId },
+      //   include: "empresa",
+      // });
+      return;
+
     } catch (error) {
       throw new Error(
         "Erro ao buscar manutenções by empresa: " + error.message

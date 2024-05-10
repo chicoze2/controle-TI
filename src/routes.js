@@ -118,7 +118,7 @@ router.get('/manutencoes-by-computador', async (req, res) => {
 
 
 router.get('/manutencoes', async (req, res) => {
-    const manutencaoList = await manutencaoController.findAll()
+    const manutencaoList = await manutencaoController.findOpened()
     const empresasList = await empresaController.getAll();
 
     res.render('pages/manutencoes', { empresas: empresasList, manutencoes: manutencaoList })

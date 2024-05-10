@@ -50,9 +50,9 @@
     </header>
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Lista de Manutenções</h1>
+        <h1 class="mt-4 mb-4">Lista de Manutenções em aberto</h1>
         <!-- Dropdown para filtrar por empresa -->
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="selectEmpresa" class="form-label">Filtrar por Empresa:</label>
             <small>ATENÇÃO: FUNCIONALIDADE NAO FINALIZADA! ESTA CRASHEANDO O SISTEMA</small>
             <select id="selectEmpresa" class="form-select">
@@ -61,16 +61,22 @@
                     <option value="<%= empresa.id %>"><%= empresa.nome %></option>
                 <% }); %>
             </select>
-        </div>
+        </div> -->
         <!-- Tabela de manutenções -->
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
+<<<<<<< Updated upstream
                     <th scope="col">Nome</th>
                     <th scope="col">Descrição</th>  
                     <th scope="col">Status</th>  
                     <th scope="col">Ações</th>
+=======
+                    <th scope="col">Nome da máquina</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Ações</th> <!-- Alteração da coluna Empresa para Ações -->
+>>>>>>> Stashed changes
                 </tr>
             </thead>
             <tbody id="tableBody">
