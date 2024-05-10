@@ -179,7 +179,10 @@ router.get('/encerrar-manutencao', async (req, res) => {
 
     manutencaoController.encerrarManutencao(id)
 
-    return res.redirect('/manutencoes')
+    // Redirecionar o usuário de volta para a página anterior
+    const referer = req.headers.referer || '/';
+    return res.redirect(referer);
+
 })
 
 module.exports = router;

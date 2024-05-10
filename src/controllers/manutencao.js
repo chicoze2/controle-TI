@@ -40,6 +40,7 @@ class ManutencaoController {
         descricao: manutencao.dataValues.descricao,
         computadorId: manutencao.dataValues.computadorId,
         dataEntrada: manutencao.dataValues.dataEntrada,
+        dataSaida: manutencao.dataValues.dataSaida,
         empresa: manutencao.computador.empresa.nome, // Use o alias aqui
         pcName: manutencao.computador.nome,
       }));
@@ -100,7 +101,7 @@ class ManutencaoController {
 
   async addItemManutencao(manutencaoId, descricao) {
     try {
-      descricao.replace(/[^a-zA-Z]/g, '')
+      descricao.replace(/[^\w\s]|_\s*$/gi, "");
       const manutencaoItem = await ManutencaoItem.create({descricao: descricao, manutencaoId: manutencaoId})
     }
     catch(err){

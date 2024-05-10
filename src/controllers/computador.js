@@ -15,8 +15,8 @@ class ComputadorController {
 
       // Cria o computador associado à empresa
       const computador = await Computador.create({ nome: name, descricao: description, empresaId: empresaId });
-
       return computador;
+      
     } catch (error) {
       throw new Error(`Erro ao registrar computador: ${error.message}`);
     }

@@ -61,7 +61,8 @@
     <header>
 
         <%- include('../main') %>
-            <%- include("./../partials/header.ejs") %>
+        <%- include("./../partials/header.ejs") %>
+        
     </header>
 
     <div class="container">
@@ -107,7 +108,7 @@
         <div id="manutencoesTable"></div> <!-- Local onde a tabela será inserida -->
     </div>
 
-    <!-- Modal -->
+    <!-- Modal add procedimento-->
     <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -122,7 +123,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Descrição</label>
-                            <textarea class="form-control" id="descricao" rows="5" name="descricao"
+                            <textarea required class="form-control" id="descricao" rows="5" name="descricao"
                                 placeholder="Descreva os procedimentos realizados."></textarea>
                         </div>
                         <hr>
