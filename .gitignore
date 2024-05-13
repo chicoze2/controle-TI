@@ -3,6 +3,9 @@
 .sqlite3
 .db
 
+#macos
+.DS_Store
+
 # Logs
 logs
 *.log
