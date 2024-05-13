@@ -37,47 +37,7 @@
     </div>
 
             <!-- Tabela de manutenções -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome da máquina</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Ações</th> <!-- Alteração da coluna Empresa para Ações -->
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- As manutenções serão renderizadas aqui -->
-                    <% manutencoes.forEach(function(manutencao, index) { %>
-                        <tr>
-                            <th scope="row"><%= index + 1 %></th>
-                            <td><%= manutencao.computadorId %> - <%= manutencao.pcName %></td>
-                            <td><%= manutencao.descricao || 'Sem descrição' %></td>
-                            <td class="align-middle">
-                                <!-- Status da manutencao -->
-                                <% if(manutencao.dataSaida) {  %>
-                                    <i class="fas fa-square-check text-success"></i>
-                                <% } else { %> 
-                                    <i class="fas fa-clock text-warning"></i>
-                                <% } %>
-                            </td>
-                            <td class="align-middle">
-                                <!-- Botões de Ações -->
-                                <div class="btn-group" role="group" aria-label="Ações">
-                                    <a href="/ver-manutencao?id=<%= manutencao.id %>">
-                                        <button type="button" class="btn btn-outline-info btn-sm">
-                                            <i class="fas fa-eye"></i> 
-                                            Ver
-                                        </button>
-                                    </a>
-                                    <!-- <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Editar</button> -->
-                                </div>
-                            </td>
-                            
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
+    
 
 </div>
 

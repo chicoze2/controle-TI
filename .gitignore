@@ -133,6 +133,4 @@ dist
 
 #auto
 src/db/db.sqlite
-src/db/db.sqlite
-src/db/db.sqlite
 *.sqlite
