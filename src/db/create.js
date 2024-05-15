@@ -101,6 +101,47 @@ const Manutencao = database.define("manutencoes", {
 
 Manutencao.hasMany(ManutencaoItem, { foreignKey: 'manutencaoId', as: 'itens' });
 
+const Transferencia = database.define('transferencias', {
+  id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true
+  },
+  data: {
+      type: Sequelize.DATE,
+      allowNull: false
+  },
+  observacao: {
+      type: Sequelize.STRING,
+      allowNull: true
+  },
+
+  emp_origem: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: Empresa,
+          key: 'id'
+      }
+  },
+  emp_destino: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: Empresa,
+          key: 'id'
+      }
+  },
+  computador: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: Computador,
+          key: 'id'
+      }
+  }
+});
+
+Transferencia.belongsTo(Computador, {foreignKey: 'computador'})
+
 
 database.sync()
     .then(() => {
@@ -109,3 +150,4 @@ database.sync()
     .catch(err => {
         console.error('Error creating table:', err);
     });
+

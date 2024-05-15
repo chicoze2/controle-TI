@@ -8,21 +8,22 @@ const ComputadorController = require("./controllers/computador")
 const computadorController = new ComputadorController();
 const ManutencaoController = require("./controllers/manutencao")
 const manutencaoController = new ManutencaoController();
-
+const TransferenciaController = require("./controllers/transferencia")
+const transferenciaController = new TransferenciaController();
 router.get('/test', (req, res) => {
     const manutencoesAbertas = manutencaoController.findOpened();
     console.log(typeof manutencoesAbertas)
-    
+
     return res.send()
 })
 router.get('/', (req, res) => {
     const manutencoes = manutencaoController.findOpened();
 
-    res.render('pages/home.ejs', {manutencoes: manutencoes})
+    res.render('pages/home.ejs', { manutencoes: manutencoes })
 });
 
 ///EMPRESA///
-router.get('/register-empresa', (req, res)=>{
+router.get('/register-empresa', (req, res) => {
     res.render('pages/register_empresa.ejs')
 })
 
@@ -51,13 +52,24 @@ router.get('/get-empresas', async (req, res) => {
 })
 
 /// COMPUTADORES ///
+router.get('/editar-pc', async (req, res) => {
+
+    const { id } = req.query
+    
+    const computador = await computadorController.getById(id);
+
+    const {descricao, nome} = computador;
+
+    return res.render('pages/editar-pc', {descricao, nome});
+})
+
 router.get('/computadores-by-empresa', async (req, res) => {
 
-    const {empresaId} = req.query
+    const { empresaId } = req.query
 
-    console.log("log rotas "+ empresaId)
+    console.log("log rotas " + empresaId)
 
-    if(!empresaId){
+    if (!empresaId) {
         const allComputadoresList = await computadorController.getAll()
         return res.json(allComputadoresList)
     }
@@ -65,17 +77,17 @@ router.get('/computadores-by-empresa', async (req, res) => {
     const computadoresList = await computadorController.getByEmpresa(empresaId);
 
     res.json(computadoresList);
-    
+
 })
 
 router.get('/computadores', async (req, res) => {
     const computadoresList = await computadorController.getAll();
     const empresasList = await empresaController.getAll();
-    
-    res.render('pages/computadores', { computadores: computadoresList, empresas: empresasList  });
+
+    res.render('pages/computadores', { computadores: computadoresList, empresas: empresasList });
 })
 
-router.get('/register-pc', async(req, res) => {
+router.get('/register-pc', async (req, res) => {
     const empresasList = await empresaController.getAll();
 
     res.render('pages/register_computer', { empresas: empresasList });
@@ -86,7 +98,7 @@ router.post('/register-pc', async (req, res) => {
     try {
         const pc = await computadorController.create(nome, descricao, empresaId);
         res.redirect("/computadores");
-    }catch (error){
+    } catch (error) {
         console.error("Erro ao registrar pc:", error);
         res.status(500).send("Erro ao registrar pc");
     }
@@ -94,21 +106,21 @@ router.post('/register-pc', async (req, res) => {
 })
 
 router.get('/ver-pc', async (req, res) => {
-    try{
-        const {id} = req.query
+    try {
+        const { id } = req.query
         const pc = await computadorController.getById(id);
 
-        return res.render('pages/computador', {computador: pc})
-    }catch (error){
+        return res.render('pages/computador', { computador: pc })
+    } catch (error) {
         console.error("Erro ao procurar pc:", error);
-        res.status(500).send("Erro ao procurar pc" + error);        
+        res.status(500).send("Erro ao procurar pc" + error);
     }
 })
 
 //MANUTENCOES
 router.get('/manutencoes-by-empresa', async (req, res) => {
 
-    const {empresaId} = req.query
+    const { empresaId } = req.query
     const manutencoesList = await manutencaoController.findByEmpresa(empresaId);
 
     return res.json(manutencoesList)
@@ -116,7 +128,7 @@ router.get('/manutencoes-by-empresa', async (req, res) => {
 
 router.get('/manutencoes-by-computador', async (req, res) => {
 
-    const {id} = req.query //////CHAAANGE
+    const { id } = req.query //////CHAAANGE
     const manutencoesList = await manutencaoController.findByComputador(id);
 
     return res.json(manutencoesList)
@@ -148,11 +160,11 @@ router.get('/register-manutencao', async (req, res) => {
 router.post('/register-manutencao', async (req, res) => {
     const { descricao, computador } = req.body;
 
-    try{
+    try {
         const manutencao = await manutencaoController.create(descricao, computador);
         return res.redirect(`/ver-manutencao?id=${manutencao.id}`)
 
-    } catch(error){
+    } catch (error) {
         console.error("Erro ao registrar manutencao:", error);
         res.status(500).send("Erro ao registrar manutencao" + error.message);
     }
@@ -168,12 +180,12 @@ router.get('/ver-manutencao', async (req, res) => {
 
     console.log(manutencao, manutencoes)
 
-    res.render('pages/manutencao', {manutencao: manutencao, manutencoes: manutencoes})
+    res.render('pages/manutencao', { manutencao: manutencao, manutencoes: manutencoes })
 
 })
 
 router.post('/add-item-manutencao', async (req, res) => {
-    const {manutencaoId, descricao} = req.body
+    const { manutencaoId, descricao } = req.body
 
     const itemManutencao = await manutencaoController.addItemManutencao(manutencaoId, descricao)
 
@@ -181,7 +193,7 @@ router.post('/add-item-manutencao', async (req, res) => {
 })
 
 router.get('/get-itens-manutencao', async (req, res) => {
-    const {id} = req.query
+    const { id } = req.query
 
     const manutencaoItensList = await manutencaoController.getItemManutencao(id)
 
@@ -189,13 +201,31 @@ router.get('/get-itens-manutencao', async (req, res) => {
 })
 
 router.get('/encerrar-manutencao', async (req, res) => {
-    const {id} = req.query
+    const { id } = req.query
 
     manutencaoController.encerrarManutencao(id)
 
     // Redirecionar o usuário de volta para a página anterior
     const referer = req.headers.referer || '/';
     return res.redirect(referer);
+
+})
+
+
+//TRANSFERENCIAS
+router.post('/transferencia', async (req, res) => {
+
+    const { computador, emp_origem, emp_destino, observacao } = req.body;
+
+    try {
+        const transferencia = await transferenciaController.create(computador, emp_origem, emp_destino, observacao);
+        // return res.redirect(`/ver-transferencia?id=${transferencia.id}`)
+        return res.json(transferencia)
+    }
+    catch (error) {
+        console.error("Erro ao registrar transferencia:", error);
+        res.status(500).send("Erro ao registrar transferencia" + error.message);
+    }
 
 })
 
