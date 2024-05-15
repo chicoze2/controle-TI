@@ -16,7 +16,7 @@ class ComputadorController {
       // Cria o computador associado à empresa
       const computador = await Computador.create({ nome: name, descricao: description, empresaId: empresaId });
       return computador;
-      
+
     } catch (error) {
       throw new Error(`Erro ao registrar computador: ${error.message}`);
     }
@@ -56,7 +56,7 @@ class ComputadorController {
   async getById(id) {
     try {
       const computador = await Computador.findByPk(id, { include: 'empresa' });
-      
+
       if (!computador) {
         throw new Error('Computador não encontrado');
       }
@@ -68,8 +68,24 @@ class ComputadorController {
     }
 
   }
+
+  async update(computador_new) {
+    try {
+
+      const computador = await Computador.findByPk(computador_new.id);
+      if (!computador) {
+        throw new Error('Computador não encontrado');
+      }
+      computador.nome = computador_new.nome;
+      computador.descricao = computador_new.descricao;
+      computador.save();
+      return computador;
+
+    } catch (error) {
+      throw new Error(`Erro ao atualizar computador: ${error.message}`);
+
+    }
+  }
 }
-
-
 
 module.exports = ComputadorController;

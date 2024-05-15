@@ -60,7 +60,18 @@ router.get('/editar-pc', async (req, res) => {
 
     const {descricao, nome} = computador;
 
-    return res.render('pages/editar-pc', {descricao, nome});
+    return res.render('pages/editar-pc', {descricao, nome, id});
+})
+
+router.post('/editar-pc', async (req, res) => {
+
+    const { id } = req.query
+    const {nome , descricao} = req.body;
+    
+    console.log("id rota editar" + id)
+    const computador = await computadorController.update({id, nome, descricao});
+
+    return res.redirect(`/ver-pc?id=${id}`);
 })
 
 router.get('/computadores-by-empresa', async (req, res) => {
