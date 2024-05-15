@@ -60,10 +60,11 @@
         <h1>Informações do computador</h1>
         <div class="container">
             <h3><%=computador.id%>: <%= computador.nome %></h3>
-            <p>Pertence à: <%= computador.empresa.nome%></p>
+            <p>Pertence à: <b><%= computador.empresa.nome%></b></p>
+            <small><%= computador.descricao %></small>
 
-            <h3>Histórico de manutenções: </h3>
             
+
             <div id="manutencoesTable"></div> <!-- Local onde a tabela será inserida -->
 
             <small id="createdAtFormatted"></small>
