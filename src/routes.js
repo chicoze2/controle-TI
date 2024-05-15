@@ -55,21 +55,22 @@ router.get('/get-empresas', async (req, res) => {
 router.get('/editar-pc', async (req, res) => {
 
     const { id } = req.query
-    
+
     const computador = await computadorController.getById(id);
+    const { descricao, nome, empresa } = computador;
 
-    const {descricao, nome} = computador;
+    const empresas = await empresaController.getAll();
 
-    return res.render('pages/editar-pc', {descricao, nome, id});
+    return res.render('pages/editar-pc', { descricao, nome, id, empresas, empresa });
 })
 
 router.post('/editar-pc', async (req, res) => {
 
     const { id } = req.query
-    const {nome , descricao} = req.body;
-    
+    const { nome, descricao } = req.body;
+
     console.log("id rota editar" + id)
-    const computador = await computadorController.update({id, nome, descricao});
+    const computador = await computadorController.update({ id, nome, descricao });
 
     return res.redirect(`/ver-pc?id=${id}`);
 })
@@ -224,14 +225,19 @@ router.get('/encerrar-manutencao', async (req, res) => {
 
 
 //TRANSFERENCIAS
-router.post('/transferencia', async (req, res) => {
+router.get("/transferir", async (req, res) => {
+
+})
+
+router.post('/transferir', async (req, res) => {
+
+    console.log(req.body);
 
     const { computador, emp_origem, emp_destino, observacao } = req.body;
 
     try {
         const transferencia = await transferenciaController.create(computador, emp_origem, emp_destino, observacao);
-        // return res.redirect(`/ver-transferencia?id=${transferencia.id}`)
-        return res.json(transferencia)
+        return res.redirect(`/ver-pc?id=${computador}`)
     }
     catch (error) {
         console.error("Erro ao registrar transferencia:", error);
