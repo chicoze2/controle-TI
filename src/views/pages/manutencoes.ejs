@@ -68,6 +68,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome da máquina</th>
+                    <th scope="col">Local</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Status</th> <!-- Alteração da coluna Empresa para Ações -->
                     <th scope="col">Ações</th>
@@ -80,6 +81,7 @@
                     <tr>
                         <th scope="row"><%= index + 1 %></th>
                         <td><%= manutencao.computadorId %> - <%= manutencao.pcName %></td>
+                        <td><%= manutencao.empresa %> </td>
                         <td><%= manutencao.descricao || 'Sem descrição' %></td>
                         <td class="align-middle">
                             <!-- Status da manutencao -->
