@@ -79,7 +79,7 @@ class ManutencaoController {
       const manutencao = await Manutencao.findByPk(id, {
         include: "computador",})
 
-      return manutencao
+      return manutencao;
       
   } catch (error) {
     throw new Error(
