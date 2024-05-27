@@ -56,6 +56,11 @@
     <%- include("./../partials/header.ejs") %>
     <%- include("../main.ejs") %>
 
+    <% if (alert) { %>
+        <script>
+          alert('<%= alert %>');
+        </script>
+      <% } %>
     <div class="container">
         <h1>Informações do computador</h1>
         <div class="container">

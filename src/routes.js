@@ -109,7 +109,11 @@ router.post('/register-pc', async (req, res) => {
     const { nome, descricao, empresaId } = req.body;
     try {
         const pc = await computadorController.create(nome, descricao, empresaId);
-        res.redirect("/computadores");
+        res.locals.alert = `Computador cadastrado com ID: ${pc.id}`
+        console.log(res.locals.alert)
+
+        res.redirect(`/ver-pc?id=${pc.id}`);
+
     } catch (error) {
         console.error("Erro ao registrar pc:", error);
         res.status(500).send("Erro ao registrar pc");
@@ -119,10 +123,11 @@ router.post('/register-pc', async (req, res) => {
 
 router.get('/ver-pc', async (req, res) => {
     try {
+        console.log(res.locals.alert)
         const { id } = req.query
         const pc = await computadorController.getById(id);
 
-        return res.render('pages/computador', { computador: pc })
+        return res.render('pages/computador', { alert:res.locals.alert, computador: pc })
     } catch (error) {
         console.error("Erro ao procurar pc:", error);
         res.status(500).send("Erro ao procurar pc" + error);
