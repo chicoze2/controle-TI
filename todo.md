@@ -20,3 +20,7 @@
 
 # ajustes tecnicos (gambiarras) - improvement to future
 - rota de encerrar manutencao está GET, o ideal seria PUT (creio eu)
+
+### LISTAR TRANSFERENCIAS NO FORMULARIO DE VER-PC JUNTO AS MANUTENCOES EM ORDEM CRONOLOGICA
+. modificar a rota que serve o array atual para montar um array com a duas Entidades. 
+. observar a ordem cronologica para disposicao e as rotas diferentes em botoes de ver mais

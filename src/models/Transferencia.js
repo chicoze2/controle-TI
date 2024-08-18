@@ -42,7 +42,7 @@ const Transferencia = database.define('transferencias', {
         }
     }
 }, {
-    timestamps: false
+    timestamps: true
 });
 
 Transferencia.belongsTo(Computador, { foreignKey: 'computador' });
