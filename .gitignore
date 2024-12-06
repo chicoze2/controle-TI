@@ -137,3 +137,4 @@ dist
 #auto
 src/db/db.sqlite
 *.sqlite
+src/.DS_Store
