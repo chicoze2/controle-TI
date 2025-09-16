@@ -278,9 +278,10 @@ router.post('/importar-csv', upload.single('csvFile'), async (req, res) => {
             const values = currentLine.split(';');
             const nome = values[headers.indexOf('nome')];
             const descricao = values[headers.indexOf('descricao')];
+            const local = values[headers.indexOf('local')];
 
             if (nome && descricao) {
-                await computadorController.create(nome.trim(), descricao.trim(), empresaId);
+                await computadorController.create(nome.trim(), descricao.trim(), empresaId, local.trim());
             }
         }
 
