@@ -6,15 +6,13 @@ class TransferenciaController {
     async create(computador, emp_origem, emp_destino, observacao) {
         try {
 
-            console.log("-----------------")
-            console.log(computador);
-            console.log("-----------------")
-            console.log(emp_origem);
-            console.log("-----------------")
-            console.log(emp_destino);
-            console.log("-----------------")
-
-
+            // console.log("-----------------")
+            // console.log(computador);
+            // console.log("-----------------")
+            // console.log(emp_origem);
+            // console.log("-----------------")
+            // console.log(emp_destino);
+            // console.log("-----------------")
 
             if (!emp_origem) throw new Error("Favor informar a empresa de origem.")
             if (!emp_destino) throw new Error("Favor informar a empresa de destino.")

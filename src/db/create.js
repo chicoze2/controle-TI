@@ -35,6 +35,10 @@ const Computador = database.define('computadores', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    local: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
 
     // Adicionando a chave estrangeira para a tabela Empresa
     empresaId: {

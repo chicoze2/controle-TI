@@ -27,6 +27,11 @@ const Computador = database.define('computadores', {
             model: Empresa,
             key: 'id'
         }
+    },
+
+    local: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 });
 

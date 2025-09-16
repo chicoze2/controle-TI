@@ -16,6 +16,7 @@
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "g": "^2.0.1",
+    "multer": "^2.0.2",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7",
     "stringfy": "^0.0.12"
