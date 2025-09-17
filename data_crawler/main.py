@@ -65,10 +65,13 @@ def main():
     root.withdraw()  # Esconde janela principal
 
     local = simpledialog.askstring("Local do Computador", "Digite o local do computador:")
+    if not local or local.strip() == "":
+        return
+
     patrimonio = simpledialog.askstring("Patrimônio", "Digite o número de patrimônio (ou deixe vazio):")
 
     if not patrimonio or patrimonio.strip() == "":
-        nome = "Computador Genérico"
+        nome = "Sem identificador de patrimônio"
     else:
         nome = patrimonio.strip()
 
