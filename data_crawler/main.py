@@ -91,7 +91,7 @@ def get_csv_filename():
 
     # Cria o CSV com headers
     with open(csv_file, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f, delimiter=";")
+        writer = csv.writer(f, delimiter=";", lineterminator="\n" )
         writer.writerow(["identificador", "descricao", "localizacao"])
 
     # Salva no config.json
@@ -135,7 +135,7 @@ def main():
     csv_file = get_csv_filename()
 
     with open(csv_file, "a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f, delimiter=";")
+        writer = csv.writer(f, delimiter=";", lineterminator="\n")
         writer.writerow([nome, descricao, local])
 
     print(f"Informações salvas em {csv_file}")
