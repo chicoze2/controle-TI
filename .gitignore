@@ -143,3 +143,5 @@ dist
 src/db/db.sqlite
 *.sqlite
 src/.DS_Store
+data_crawler/config.json
+*.csv
