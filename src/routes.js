@@ -270,15 +270,17 @@ router.post('/importar-csv', upload.single('csvFile'), async (req, res) => {
 
         // Assume que o CSV tem cabeçalho na primeira linha
         const headers = lines[0].split(';');
-
+        console.log(headers)
         for (let i = 1; i < lines.length; i++) {
             const currentLine = lines[i];
             if (!currentLine.trim()) continue;
 
             const values = currentLine.split(';');
-            const nome = values[headers.indexOf('nome')];
+            const nome = values[headers.indexOf('identificador')];
             const descricao = values[headers.indexOf('descricao')];
-            const local = values[headers.indexOf('local')];
+            const local = values[headers.indexOf('localizacao')];
+
+            console.log(nome, descricao, local)
 
             if (nome && descricao) {
                 await computadorController.create(nome.trim(), descricao.trim(), empresaId, local.trim());
